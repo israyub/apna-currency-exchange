@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f0f2f5;
   margin: 0;
-  padding: 0;
-  color: #333;
+  background-color: #f7f9fc;
+  color: #222;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 header {
@@ -13,115 +23,188 @@ header {
   color: white;
   padding: 30px 20px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
 header p {
-  margin: 5px 0 0;
-  font-weight: 300;
-  font-size: 1rem;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 1.1rem;
+  opacity: 0.85;
 }
 
 main {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 0 20px;
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
-.converter {
+/* Calculator section */
+.calculator {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 15px;
   justify-content: center;
-  margin-bottom: 30px;
-  align-items: flex-end;
+  margin-bottom: 40px;
 }
 
-.input-group {
+.currency-select, .amount-input {
   display: flex;
   flex-direction: column;
-  min-width: 140px;
+  min-width: 150px;
 }
 
-label {
+.currency-select label,
+.amount-input label {
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
-select, input {
-  padding: 8px 12px;
+.currency-select select,
+.amount-input input {
   font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
   outline-offset: 2px;
   outline-color: #0077b6;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
 }
 
-button#convert-btn {
-  background-color: #0077b6;
-  color: white;
+.currency-select select:focus,
+.amount-input input:focus {
+  border-color: #0077b6;
+}
+
+#from-currency {
+  cursor: not-allowed; /* base currency fixed */
+  background-color: #e9ecef;
+}
+
+button#swap-btn {
+  background: #0077b6;
   border: none;
-  padding: 10px 24px;
-  font-size: 1rem;
-  border-radius: 6px;
+  color: white;
+  font-size: 1.7rem;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
   transition: background-color 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button#convert-btn:hover {
-  background-color: #005f8a;
+button#swap-btn:hover {
+  background: #005f8a;
+}
+
+.converted-result {
+  min-width: 220px;
+  padding: 15px 20px;
+  background: #e0f0ff;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0077b6;
+}
+
+.converted-result p {
+  margin: 6px 0;
+}
+
+/* Live Rates Section */
+#live-rates h2 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #0077b6;
+  text-align: center;
 }
 
 #rates {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 18px;
 }
 
 .rate-card {
-  background-color: white;
-  padding: 20px;
+  background: white;
+  padding: 15px 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   text-align: center;
+  transition: transform 0.2s ease;
+  cursor: default;
+}
+
+.rate-card:hover {
+  transform: translateY(-4px);
 }
 
 .rate-card h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-weight: 700;
+  font-size: 1.3rem;
   color: #0077b6;
 }
 
 .rate-card p {
-  margin: 10px 0 0;
-  font-size: 1.1rem;
+  margin: 6px 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #222;
 }
 
+/* Footer */
 footer {
+  background: #003d66;
+  color: white;
+  padding: 30px 20px;
   text-align: center;
-  padding: 20px;
-  color: #666;
-  font-size: 0.9rem;
-  background-color: #f8f9fa;
-  border-top: 1px solid #ddd;
+  font-size: 0.95rem;
+  font-weight: 400;
 }
 
-@media (max-width: 480px) {
-  .converter {
+footer h3 {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .calculator {
     flex-direction: column;
-    align-items: stretch;
+  }
+  
+  button#swap-btn {
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1.5rem;
   }
 
-  .input-group {
-    min-width: 100%;
-  }
-
-  button#convert-btn {
+  .converted-result {
+    min-width: auto;
     width: 100%;
   }
 }
+
